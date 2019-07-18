@@ -1,4 +1,4 @@
-function addNotices(tag, done) {
+function getLinks(tag, done) {
     $.ajax({
         type: "GET",
         url: "/api/generator",
@@ -9,22 +9,33 @@ function addNotices(tag, done) {
 
         },
         success: function (data) {
-            console.log((data));
+            // console.log((data));
+            done(data)
         },
 
     })
 
 }
 
+function createList(data){
+    console.log(data.link)
+    return $(`
+    <li class="list">${data.link}</li>
+    `)
+}
+
 
 $(function () {
     let tag = $('#tag1')
+    let dataList = $('#ul-list')
 
     $('#addbtn').click(function () {
-        addNotices(
+        getLinks(
             tag.val(),
-            function (data) {
-                console.log(data)
+            function (datas) {
+                for(data of datas) {
+                    dataList.append(createList(data))
+                }
 
             }
         )
@@ -32,10 +43,10 @@ $(function () {
 
     })
 
-    let tag2 = $('#tag2')
+    // let tag2 = $('#tag2')
 
-    $('#uploadbtn').click(function () {
+    // $('#uploadbtn').click(function () {
 
-    })
+    // })
 
 })

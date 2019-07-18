@@ -6,7 +6,7 @@ var Request = require("request");
 let urls = [];
 
 
-route.get('/', function aman(req, res) {
+route.get('/', (req, res) => {
   Request.get("https://api.unsplash.com/search/photos/?client_id=0c818841f7cdf80f3c67be359441bf7e3a0982757411a1faffbf6c0cdad7d205&query=" + req.query.tag, (error, response, body) => {
     if (error) {
       console.log("error in get")
@@ -30,7 +30,7 @@ route.get('/', function aman(req, res) {
       };
       var path = 'pic - ' + req.query.tag + ' - ' + i + '.png';
       download(url, path, function () {
-        // console.log(urls)
+        console.log(urls)
       });
       //testing
       fs.writeFile("input.json", JSON.stringify(urls), function (err) {
